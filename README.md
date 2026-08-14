@@ -86,7 +86,7 @@ sessions
 
 
 
-## Important section
+## Important things
 - Cheap to run
 - Vast access to file system and tools
 - Should complete the tasks efficiently
