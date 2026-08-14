@@ -55,7 +55,7 @@ and other
 CLI Tool
 
 
-`whale`  continues session form the pwd
+`whale`  continues session form the pwd  / execute a prompt
 Availble commands:
 
 -h --help
