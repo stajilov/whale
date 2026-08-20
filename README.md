@@ -9,6 +9,7 @@
 
 *Agent AI Harnesss* - runtime for multiagent systems with orchestrations based on LLLM backbone.
 *Loop Engineering*  - a method to work with AI agents in a loop conrolled way. Following the pattern: act → observe → decide → repeat with exit criteria
+*Swarm* - multiple agents working in paralleing, executing a piece of instruction from the system or the user
 
 
 
@@ -16,17 +17,46 @@
 - exetensive memory, ideally it should have structured memory
 - Should be able to launch swarms of agents
 - Should have stop criteria
-- It should be self-learning, inspired by hermes
-- Should have tools available, as many as possible. Maybe: we can use dynamic creation, with a specialized subagent
+- It should be self-learning!
+- Should have tools available, as many as possible
+- Looping
+
+
+
+## Architecture
+(
+1. pick up (remember what was before aka retrieve from memory)
+2. learn (run a loop to have high level understanding what was before)
+3. plan (run a loop to iterate over planning, this includes spinning up the agents to plan (a swarm), maybe! plan with tree like scruture, tree-like graph  ) 
+4. research ( research further down to strengthen the plan, also with the swarm of agentic) 
+5. Execucute the plan -> produce the output for the user, via swarm. 
+6. Register the completition fact, save the output, match it to the plan from step 3.
+7. Decide -> Provide the output
+    |
+   GO LOOP OVER
+) -> LOOP OVER
+
+
+### Architecural aspects
+- Multiagent
+- Memory (semistructure), llm wiki type, Semantica  !
+- Learning capabilities
+- powerful on simple fast cheap LLM backbones
+- Swarm capabilities ! 
+- rhizomatic-like structure !
+
+LOOP around with success criteria
+
 
 
 ### Worth mentioning
 System Prompts
-Tools, Skills, MCPs + and their descriptions
+capability surface (skills, plugins, MCP, tools, platforms) 
+Autodiscovery of tools, autocreation of skills etc (via hooks)
 Bundled Infrastructure (filesystem, sandbox, browser)
 Orchestration Logic (subagent spawning, handoffs, model routing)
 Hooks/Middleware for deterministic execution (compaction, continuation, lint checks)
-
+Agents and task survivoal `cronjob` or `terminal(background=True, notify_on_complete=True)`
 
 
 ## Form
@@ -63,7 +93,8 @@ Availble commands:
 -s --sessions
 -sk --skills add nameoftheskill/SKILL.md
 -ag --agents add [AGENT]
-
+-aa --apps add type: OAuth 
+-mm --memory manage [forget | relearn | add ]
 
 -cc --custom commands
 --c -add  
@@ -80,9 +111,14 @@ agents
 mcps
 tool (loaded dynamically)
 settings.json
-memory -> mongo like, sql like (with a native tools to read from it)
-sessions 
+apps
+- oauth.json
+- specs.jsom (can have OpenAPI)
 
+memory -> mongo like, sql like (with a native tools to read from it)
+
+sessions 
+SessioId , MessageId, tools_called, content
 
 
 
@@ -105,3 +141,9 @@ landing page
 wiki docs
 native integrations: memory engines like openwolf
 curl and brew installation, apt etc installations
+
+
+
+## Further reading
+https://github.com/sturlese/stigmergy/blob/main/docs/decisions/023-learning-loop.md
+https://github.com/semantica-agi/semantica/blob/main/ARCHITECTURE.md
