@@ -147,3 +147,12 @@ curl and brew installation, apt etc installations
 ## Further reading
 https://github.com/sturlese/stigmergy/blob/main/docs/decisions/023-learning-loop.md
 https://github.com/semantica-agi/semantica/blob/main/ARCHITECTURE.md
+
+
+
+## Current progress:
+20.08.2026:
+- Implmented: achticectural research
+- Memory hooks, session init
+
+Next steps: proper memory arrangement, ideas: always ask llm to return a prepared graph objects like node or branch (as we intend to have a memory of graph structure) and save it immediately. Or we fire a tool call with fire-and-roget option to form this graph primitive.

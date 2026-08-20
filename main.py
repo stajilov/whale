@@ -3,6 +3,8 @@ import typer
 from typer.core import TyperGroup
 
 from models import completion_default
+from session import appendMessage, initSession
+from memory import _hook_record
 
 
 class DefaultCommandGroup(TyperGroup):
@@ -20,7 +22,20 @@ app = typer.Typer(cls=DefaultCommandGroup)
 @app.command(hidden=True)
 def prompt(text: str = typer.Argument(..., help="Prompt to execute.")) -> None:
     """Execute a prompt using the default model."""
-    typer.echo(completion_default(text))
+    session = initSession()
+    appendMessage(session.id, {"role": "user", "content": text})
+    response = completion_default(text)
+    if response is not None:
+        appendMessage(session.id, {"role": "assistant", "content": response})
+        _hook_record(
+            {
+                "kind": "turn",
+                "session_id": session.id,
+                "prompt": text,
+                "response": response,
+            }
+        )
+    typer.echo(response)
 
 
 @app.command()
